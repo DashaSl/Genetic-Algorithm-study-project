@@ -23,3 +23,8 @@ void Polynomial::print() {
         }
         std::cout << '\n';
 }
+
+double Polynomial::Evaluation(Chromosome chromosome) {
+    // считается интеграл разности между двумя функциями с шагом длина ступени/какое-нибудь число
+     return 0.0;
+}

@@ -9,9 +9,9 @@ class Chromosome {
         std::vector<double> genes;
         
         Chromosome(double probMutation, double down, double up, int number);
-        void updateChromosome(std::vector<double>);
-        Chromosome mutation();
-        Chromosome recombination();
-        void addNumber();
+       // void updateChromosome(std::vector<double>);
+       // Chromosome mutation();
+       // Chromosome recombination();
+       // void addNumber();
 };
 
