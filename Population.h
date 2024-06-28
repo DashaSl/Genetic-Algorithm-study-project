@@ -13,7 +13,8 @@ class Population{
         Population(double down = 0, double up = 100, int countIndivids = 50, int countSteps = 10, double probMutation = 0.1); // генерируется популяция из count_individs особей 
         void updatePopulation(std::vector<Chromosome> chromosomes);
         //реализовать ЭЛИТАРНЫЙ ОТБОР
-        void selection(Polynomial &polynom, double criterion);
+        void elite_selection(Polynomial &polynom, double criterion); // элитарный отбор
+        //void mutation_population();
 };
 
 #endif
