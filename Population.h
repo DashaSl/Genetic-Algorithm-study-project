@@ -1,3 +1,5 @@
+#ifndef Population_h
+#define Population_h
 #include <iostream>
 #include <vector>
 #include "Polynomial.h"
@@ -12,3 +14,4 @@ class Population{
         //Population selection();
 };
 
+#endif
