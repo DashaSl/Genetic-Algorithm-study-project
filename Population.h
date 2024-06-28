@@ -7,7 +7,7 @@ class Population{
         int count_individs;
 //        std::vector<Chromosome> chromosomes;
         
-        Population(double down, double up, int count_individs, int count_steps, double probMutation); // генерируется популяция из count_individs особей 
+        Population(double down = 0, double up = 100, int count_individs = 50, int count_steps = 10, double probMutation = 0.1); // генерируется популяция из count_individs особей 
         //Population updatePopulation();
         //Population selection();
 };

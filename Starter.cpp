@@ -23,12 +23,11 @@ void Starter::input() {
     std::cin >> count_steps;
     std::cout << "Введите количество индивидов в начальной популяции\n";
     std::cin >> count_individs;                                                                                  
-    std::cout << "Введите верхнюю и нижнюю границу, в которых находятся высоты функции g\n";
+    std::cout << "Введите нижнюю и верхнюю границу, в которых находятся высоты функции g\n";
     std::cin >> down >> up;                                                      
     std::cout << "Введите количество поколений и критерий (положительное число) через пробел\n";
     std::cin >> iteration >> criterion;
     std::cout << "Введите вероятность мутации каждого гена\n";
     std::cin >> probMutation;
-    Population population(down, up, count_individs, count_steps, probMutation);
-    Algorithm aglorithm = Algorithm(population, coefs, iteration, criterion, left, right);
+    Algorithm aglorithm = Algorithm(down, up, count_individs, count_steps, probMutation, coefs, iteration, criterion, left, right);
 }

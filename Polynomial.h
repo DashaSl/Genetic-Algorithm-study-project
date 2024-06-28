@@ -10,7 +10,7 @@ class Polynomial {
     public:
         double left;
         double right;
-        Polynomial(std::vector<double>, double left, double right);
+        Polynomial(std::vector<double> = {1.0}, double left = 0, double right = 100);
         double getValue(double x);
         void print();
 };

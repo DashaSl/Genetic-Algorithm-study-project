@@ -9,12 +9,12 @@
 
 class Algorithm{
     public:
-        Population population;
-        Polynomial polynom;
+        Population population = Population();
+        Polynomial polynom = Polynomial();
         int iteration;
         double criterion;
         
-        Algorithm(Population population, std::vector<double> coefs_polynom, int iteration, double criterion, double left, double right);
+        Algorithm(double down, double up, int count_individs, int count_steps, double probMutation, std::vector<double> coefs_polynom, int iteration, double criterion, double left, double right);
         void start();
         void methodGA();
 };
