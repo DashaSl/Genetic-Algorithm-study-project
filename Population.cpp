@@ -17,16 +17,16 @@ void Population::updatePopulation(std::vector<Chromosome> chromosomes) {
     this->countIndivids = this->chromosomes.size();
 }
 
-void Population::selection(Polynomial *polynom, double criterion) {
+void Population::selection(Polynomial &polynom, double criterion) {
     std::vector<Chromosome> children;
     for (int i = 0; i < this->countIndivids; i++) {
-        double difference = polynom->Evaluation(this->chromosomes[i]);
+        double difference = polynom.Evaluation(this->chromosomes[i]);
         if (difference <= criterion) {
             int j = i;
             while (j = i) {
                 j = rand() % (countIndivids);
             }
-            std::pair<Chromosome> pair_children = this->chromosomes[i]->recombination(this->chromosomes[i], this->chromosomes[j]);
+            std::vector<Chromosome> pair_children = this->chromosomes[i].recombination(this->chromosomes[i], this->chromosomes[j]);
             children.push_back(pair_children[0]);
             children.push_back(pair_children[1]);
         }

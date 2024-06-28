@@ -11,9 +11,9 @@ class Population{
         std::vector<Chromosome> chromosomes = {};
         
         Population(double down = 0, double up = 100, int countIndivids = 50, int countSteps = 10, double probMutation = 0.1); // генерируется популяция из count_individs особей 
-        Population updatePopulation(std::vector<Chromosome> chromosomes);
+        void updatePopulation(std::vector<Chromosome> chromosomes);
         //реализовать ЭЛИТАРНЫЙ ОТБОР
-        Population selection(Polynomial *polynom, double criterion);
+        void selection(Polynomial &polynom, double criterion);
 };
 
 #endif

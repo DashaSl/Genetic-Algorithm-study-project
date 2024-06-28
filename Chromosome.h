@@ -24,8 +24,8 @@ class Chromosome {
         void mutate();
 
 
-       double new_gene(double old_gene);
-       static void discr_recomb(Chromosome parent1, Chromosome parent2, std::vector<Chromosome>& answer);
-       void print_test();
+        double new_gene(double old_gene);
+        static void discr_recomb(Chromosome parent1, Chromosome parent2, std::vector<Chromosome>& answer);
+        void print_test();
 };
 
