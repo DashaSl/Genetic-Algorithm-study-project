@@ -7,7 +7,6 @@ Starter::Starter() {
 
 
 void Starter::input() {
-//void Starter::input() {
     int degree, count_steps, iteration, count_individs;
     double left, right, up, down, criterion, probMutation;
     std::cout << "Введите степень полинома\n";
@@ -29,6 +28,25 @@ void Starter::input() {
     std::cin >> iteration >> criterion;
     std::cout << "Введите вероятность мутации каждого гена\n";
     std::cin >> probMutation;
-    Algorithm aglorithm = Algorithm(down, up, count_individs, count_steps, probMutation, coefs, iteration, criterion, left, right);
-    aglorithm.stepHybridAlgorithm();
+    Algorithm algorithm = Algorithm(down, up, count_individs, count_steps, probMutation, coefs, iteration, criterion, left, right);
+    this->execution(algorithm, count_steps);
+}
+
+void Starter::execution(Algorithm &algorithm, int count_steps) {
+    std::vector<Chromosome> top;
+    for (int i = 0; i < count_steps; i++) {
+        top = algorithm.stepHybridAlgorithm();
+        this->print(top);
+    }
+}
+
+
+void Starter::print(std::vector<Chromosome> &top) {
+    for (int i = 0; i < top.size(); i++) {
+        std::cout << "Экземпляр " << i;
+        for (int j = 0; j < top[i].length; j++) {
+            std::cout << top[i].genes[j] << ' ';
+        }
+        std::cout << "\n\n";
+    }
 }

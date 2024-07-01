@@ -18,8 +18,6 @@ Population::Population(Polynomial &polynom, double down, double up, int countInd
 }
 
 
-
-
 bool compare(const Chromosome& left, const  Chromosome& right){
     double a = left.estimate;
     double b = right.estimate;

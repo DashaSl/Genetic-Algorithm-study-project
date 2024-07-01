@@ -9,6 +9,8 @@ class Starter{
     public:
         Starter();
         void input();
+        void execution(Algorithm &algorithm, int count_steps);
+        void print(std::vector<Chromosome>& top);
 };
 
 
