@@ -29,12 +29,12 @@ void Starter::input() {
     std::cout << "Введите вероятность мутации каждого гена\n";
     std::cin >> probMutation;
     Algorithm algorithm = Algorithm(down, up, count_individs, count_steps, probMutation, coefs, iteration, criterion, left, right);
-    this->execution(algorithm, count_steps);
+    this->execution(algorithm, iteration);
 }
 
-void Starter::execution(Algorithm &algorithm, int count_steps) {
+void Starter::execution(Algorithm &algorithm, int iteration) {
     std::vector<Chromosome> top;
-    for (int i = 0; i < count_steps; i++) {
+    for (int i = 0; i < iteration; i++) {
         top = algorithm.stepHybridAlgorithm();
         this->print(top);
     }
@@ -42,6 +42,7 @@ void Starter::execution(Algorithm &algorithm, int count_steps) {
 
 
 void Starter::print(std::vector<Chromosome> &top) {
+    std::cout << top.size() << '\n';
     for (int i = 0; i < top.size(); i++) {
         std::cout << "Экземпляр " << i;
         for (int j = 0; j < top[i].length; j++) {

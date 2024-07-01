@@ -2,18 +2,21 @@
 #include <algorithm>
 
 
-Population::Population(Polynomial &polynom, double down, double up, int countIndivids, int countStep, double probMutation) {
+Population::Population(Polynomial &polynom, double down, double up, int count, int countStep, double probMutation) {
+    if (count == 0) {
+        return;
+    }
     double difference;
-    this->countIndivids = countIndivids;
+    this->countIndivids = count;
     std::vector<double> differences;
-    for (int i = 0; i < countIndivids; i++) {
+    for (int i = 0; i < count; i++) {
         Chromosome new_chromosome = Chromosome(countStep, probMutation, down, up, i + 1);
-        difference = polynom.Evaluation(this->chromosomes[i]);
+        difference = polynom.Evaluation(new_chromosome);
         new_chromosome.estimate = difference;
         this->chromosomes.push_back(new_chromosome);
         differences.push_back(difference);
     }
-    this->countBestIndivids = countIndivids / 3 * 4;
+    this->countBestIndivids = countIndivids / 4 * 3;
     this->threshold = differences[this->countBestIndivids];
 }
 

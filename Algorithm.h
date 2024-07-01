@@ -8,7 +8,7 @@
 
 class Algorithm{
     public:
-        Polynomial polynom;
+        Polynomial polynom = Polynomial({}, 0, 0);
         Population population = Population(polynom);
         int iteration;
         double criterion;
