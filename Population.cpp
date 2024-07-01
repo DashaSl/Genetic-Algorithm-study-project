@@ -10,11 +10,12 @@ Population::Population(Polynomial &polynom, double down, double up, int count, i
     this->countIndivids = count;
     std::vector<double> differences;
     for (int i = 0; i < count; i++) {
-        Chromosome new_chromosome = Chromosome(countStep, probMutation, down, up, i + 1);
+        Chromosome new_chromosome = Chromosome(probMutation, down, up, i + 1, countStep);
         difference = polynom.Evaluation(new_chromosome);
         new_chromosome.estimate = difference;
         this->chromosomes.push_back(new_chromosome);
         differences.push_back(difference);
+        new_chromosome.print_test();
     }
     this->countBestIndivids = countIndivids / 4 * 3;
     this->threshold = differences[this->countBestIndivids];
@@ -45,7 +46,7 @@ void Population::addChildren(std::vector<Chromosome> children, Polynomial &polyn
     double difference;
     for (int i = 0; i < this->countIndivids; i++) {
         int j = i;
-        while (j = i) {
+        while (j == i) {
             j = rand() % (this->countIndivids);
         }
         std::vector<Chromosome> pair_children = this->chromosomes[i].recombination(this->chromosomes[i], this->chromosomes[j]);

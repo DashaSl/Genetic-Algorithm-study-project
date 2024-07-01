@@ -21,7 +21,7 @@ bool compar(const Chromosome& left, const  Chromosome& right){
 
 
 std::vector<Chromosome> Algorithm :: stepHybridAlgorithm() {
-    this->population.elite_selection(this->polynom, this->criterion);
+    this->population.elite_selection(this->polynom, this->iteration);
     return this->top();
 };
 

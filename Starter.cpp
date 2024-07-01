@@ -35,6 +35,7 @@ void Starter::input() {
 void Starter::execution(Algorithm &algorithm, int iteration) {
     std::vector<Chromosome> top;
     for (int i = 0; i < iteration; i++) {
+        std::cout<< "итерация " << i + 1 << ":\n";
         top = algorithm.stepHybridAlgorithm();
         this->print(top);
     }
@@ -44,10 +45,11 @@ void Starter::execution(Algorithm &algorithm, int iteration) {
 void Starter::print(std::vector<Chromosome> &top) {
     std::cout << top.size() << '\n';
     for (int i = 0; i < top.size(); i++) {
-        std::cout << "Экземпляр " << i;
-        for (int j = 0; j < top[i].length; j++) {
-            std::cout << top[i].genes[j] << ' ';
-        }
-        std::cout << "\n\n";
+        std::cout << "Экземпляр " << i + 1 << ": ";
+        //for (int j = 0; j < top[i].length; j++) {
+        //    std::cout << top[i].genes[j] << ' ';
+        //}
+        top[i].print_test();
     }
+    std::cout << "\n\n";
 }
