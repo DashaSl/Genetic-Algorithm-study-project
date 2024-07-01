@@ -3,7 +3,7 @@
 #include "Chromosome.h"
 #include <iostream>
 #include <vector>
-
+#define STEPS 1000
 
 class Polynomial {
     private:
@@ -13,7 +13,7 @@ class Polynomial {
         double right;
         Polynomial(std::vector<double> = {1.0}, double left = 0, double right = 100);
         double getValue(double x);
-        double Evaluation(Chromosome chromosome);
+        double Evaluation(Chromosome& chromosome);
         void print();
 };
 
