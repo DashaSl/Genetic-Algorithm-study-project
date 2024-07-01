@@ -30,5 +30,5 @@ void Starter::input() {
     std::cout << "Введите вероятность мутации каждого гена\n";
     std::cin >> probMutation;
     Algorithm aglorithm = Algorithm(down, up, count_individs, count_steps, probMutation, coefs, iteration, criterion, left, right);
-    aglorithm.start();
+    aglorithm.stepHybridAlgorithm();
 }
