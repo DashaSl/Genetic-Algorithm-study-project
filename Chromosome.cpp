@@ -39,24 +39,32 @@ std::vector<Chromosome> Chromosome::recombination(Chromosome parent1, Chromosome
 
 //done
 double Chromosome::new_gene(double old_gene){
-        double down_mutation = this->down_border > old_gene - max_mutation_step ? this->down_border : old_gene - max_mutation_step ;
-        double up_mutation = this->up_border < old_gene + max_mutation_step ? this->down_border : old_gene - max_mutation_step; 
+
 
 
         std::random_device rd;  // Will be used to obtain a seed for the random number engine
         std::mt19937_64 gen(rd());//генерирует случайное целое
-        std::uniform_real_distribution<> dis(down_mutation, up_mutation);
+        std::uniform_real_distribution<> dis(old_gene - max_mutation_step, old_gene + max_mutation_step);
 
-        return dis(gen);
+        double answer = dis(gen);
+
+        return answer;
 
 }
 
-void Chromosome::mutate(){
+void Chromosome::mutate(int method){
+        if(method == 0){
+                this->mutate_dumb(); 
+        }
+}
+
+void Chromosome::mutate_dumb(){
         std::random_device rd;  // Will be used to obtain a seed for the random number engine
         std::mt19937_64 gen(rd());//генерирует случайное целое
         std::uniform_real_distribution<> dis(0, 1);
-        for(auto val: this->genes){
-                if(dis(gen) > probMutation){
+        for(auto& val: this->genes){
+                if(dis(gen) < probMutation){
+                        std::cout << "mutation happend\n";
                         val = new_gene(val);
                 }
         }
