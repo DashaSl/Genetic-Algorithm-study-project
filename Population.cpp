@@ -32,17 +32,17 @@ void Population::sortPopulation() {
     std::sort(begin(this->chromosomes), end(this->chromosomes), compare);
 }
 
-void Population::updatePopulation(std::vector<Chromosome> chromosomes) {
+void Population::updatePopulation(std::vector<Chromosome> chroms) {
     this->chromosomes = {};
-    for (int i = 0; i < chromosomes.size(); i++) {
-        this->chromosomes.push_back(chromosomes[i]);
+    for (int i = 0; i < chroms.size(); i++) {
+        this->chromosomes.push_back(chroms[i]);
     }
     this->sortPopulation();
     this->countIndivids = this->chromosomes.size();
 }
 
 
-void Population::addChildren(std::vector<Chromosome> children, Polynomial &polynom) {
+void Population::addChildren(std::vector<Chromosome> &children, Polynomial &polynom) {
     double difference;
     for (int i = 0; i < this->countIndivids; i++) {
         int j = i;
@@ -59,19 +59,25 @@ void Population::addChildren(std::vector<Chromosome> children, Polynomial &polyn
     }
 }
 
-void Population::elite_selection(Polynomial &polynom, int count) {
+void Population::elite_selection(Polynomial &polynom) {
     std::vector<Chromosome> cutPopulation;
     std::vector<Chromosome> newPopulation;
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < this->countBestIndivids; i++) {
         cutPopulation.push_back(this->chromosomes[i]);
     }
     this->updatePopulation(cutPopulation);
-    this-> addChildren(cutPopulation, polynom);
+
+    this->addChildren(cutPopulation, polynom);
+
     this->updatePopulation(cutPopulation);
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < cutPopulation.size(); i++) {
         newPopulation.push_back(this->chromosomes[i]);
     }
     this->updatePopulation(newPopulation);
+    //for (int i = 0; i < this->countIndivids; i++) {
+    //    std::cout << this->chromosomes[i].estimate << ' ';
+    //}
+    //std::cout << '\n';
 }
 
 
