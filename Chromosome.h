@@ -4,7 +4,7 @@
 #include <limits>
 #include <cfloat>
 
-#define MAX_MUT_STP 0.5 //поменять, когда станет понятно
+#define MAX_MUT_STP 2.5 //поменять, когда станет понятно
 
 class Chromosome {
     public:
@@ -21,9 +21,9 @@ class Chromosome {
         Chromosome(double probMutation, double down, double up, int number, int len);
         //В других классах и функциях используются только эти две функции
         static std::vector<Chromosome> recombination(Chromosome parent1, Chromosome parent2, int method = 0);
-        void mutate();
+        void mutate(int method = 0);
 
-
+        void mutate_dumb();
         double new_gene(double old_gene);
         static void discr_recomb(Chromosome parent1, Chromosome parent2, std::vector<Chromosome>& answer);
         void print_test();
