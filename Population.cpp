@@ -74,10 +74,11 @@ void Population::elite_selection(Polynomial &polynom) {
         newPopulation.push_back(this->chromosomes[i]);
     }
     this->updatePopulation(newPopulation);
-    //for (int i = 0; i < this->countIndivids; i++) {
-    //    std::cout << this->chromosomes[i].estimate << ' ';
-    //}
-    //std::cout << '\n';
 }
 
+void Population:: mutationPopulation() {
+    for (int i = 0; i < this->countIndivids; i++) {
+        this->chromosomes[i].mutate();
+    }
+}
 

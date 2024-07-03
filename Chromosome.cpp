@@ -64,7 +64,7 @@ void Chromosome::mutate_dumb(){
         std::uniform_real_distribution<> dis(0, 1);
         for(auto& val: this->genes){
                 if(dis(gen) < probMutation){
-                        std::cout << "mutation happend\n";
+                        //std::cout << "mutation happend\n";
                         val = new_gene(val);
                 }
         }

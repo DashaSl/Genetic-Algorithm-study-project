@@ -18,6 +18,7 @@ class Population{
         void elite_selection(Polynomial &polynom); // элитарный отбор
         void sortPopulation();
         void addChildren(std::vector<Chromosome> &children, Polynomial &polynom);
+        void mutationPopulation();
 };
 
 #endif
