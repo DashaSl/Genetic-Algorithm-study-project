@@ -76,6 +76,10 @@ void Population::elite_selection(Polynomial &polynom) {
     this->updatePopulation(newPopulation);
 }
 
+void Population:: truncation_selection(Polynomial &polynom) {
+
+}
+
 void Population:: mutationPopulation() {
     for (int i = 0; i < this->countIndivids; i++) {
         this->chromosomes[i].mutate();
