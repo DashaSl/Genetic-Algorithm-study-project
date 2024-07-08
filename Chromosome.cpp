@@ -1,16 +1,10 @@
 #include "Chromosome.h"
 
-double random_num(double a, double b){
-        std::random_device rd;  // Will be used to obtain a seed for the random number engine
-        std::mt19937_64 gen(rd());//генерирует случайное целое
-        std::uniform_real_distribution<> dis(a, b);
 
-        double answer = dis(gen); 
-        std::cout << "Random check: " << answer<<"\n";
-        return answer;       
-}
-
-Chromosome::Chromosome(double probMutationGen, double probMutationIndiv, double down, double up, int number, int len, int age, int birthDate) {
+//done
+Chromosome::Chromosome(double probMutation, double down, double up, int number, int len, int methodmut, int methodrecomb) {
+        this->metodRecomb = methodrecomb;
+        this->methodMut = methodmut; 
         this->estimate = DBL_MAX;
         this->number = number;
         this->probMutation = probMutation;
