@@ -102,6 +102,12 @@ void Population:: mutationPopulation() {
 
 void Population :: cutOldIndivids(int curIteration) {
     //в this->chromosomes оставить только те хромосомы, чей возраст + дата рождения не больше чем curIteration
+    auto iter = chromosomes.cbegin(); // указатель на первый элемент
+    for (int i = 0; i < chromosomes.size(); i++) {
+    	if (chromosomes[i].age + chromosomes[i].birthDate > curIteration) {
+			chromosomes.erase(iter + i);
+    	}
+    }
 }
 
 void Population :: addAge(int maxAge) {
