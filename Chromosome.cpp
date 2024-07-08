@@ -1,9 +1,11 @@
 #include "Chromosome.h"
 
 //done
-Chromosome::Chromosome(double probMutation, double down, double up, int number, int len, int methodmut, int methodrecomb) {
+Chromosome::Chromosome(double probMutation, double down, double up, int number, int len, int methodmut, int methodrecomb,int age, int birtdate) {
         this->metodRecomb = methodrecomb;
         this->methodMut = methodmut; 
+        this->age = age;
+        this->birthDate = birtdate;
         this->estimate = DBL_MAX;
         this->number = number;
         this->probMutation = probMutation;
