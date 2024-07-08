@@ -104,6 +104,10 @@ void Population :: cutOldIndivids(int curIteration) {
     //в this->chromosomes оставить только те хромосомы, чей возраст + дата рождения не больше чем curIteration
 }
 
-void Population :: addAge() {
-
+void Population :: addAge(int maxAge) {
+    int age;
+    for (int i = 0; i < this->cointIndivids; i++) {
+        age = maxAge - int(double(i) / countIndivids * maxAge);
+        this->chromosomes[i].age = age;
+    }
 }

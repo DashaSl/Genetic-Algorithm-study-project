@@ -45,8 +45,8 @@ std::vector<Chromosome> Algorithm::top() {
 }
 
 
-//std::vector<Chromosome> stepNonFixedSizeoplationGA() {
-//    this->population.addChildren
-//    this->population.cutOldIndivids
+//std::vector<Chromosome> stepNonFixedSizeoplationGA(int iteration) {
+//    this->population.addChildren();
+//    this->population.cutOldIndivids(iteration)
 //}
 
