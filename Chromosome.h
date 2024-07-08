@@ -8,7 +8,7 @@
 
 class Chromosome {
     public:
-        double probMutation;
+        double probMutationGen;
         int number;
         std::vector<double> genes;
         int length;
@@ -16,7 +16,8 @@ class Chromosome {
         double down_border;
         double up_border;
         double estimate;
-
+        double probMutationIndiv;
+        int age;
 
         Chromosome(double probMutation, double down, double up, int number, int len);
         //В других классах и функциях используются только эти две функции
@@ -26,6 +27,7 @@ class Chromosome {
         void mutate_dumb();
         double new_gene(double old_gene);
         static void discr_recomb(Chromosome parent1, Chromosome parent2, std::vector<Chromosome>& answer);
-        void print_test();
+        //void print_test();
 };
 
+double random_num(double a, double b);

@@ -97,7 +97,7 @@ class MainWindow(QMainWindow):
     def calc(self, x):
         ans = 0
         for i in range(len(self.coeff_for_pol)):
-            ans += self.coeff_for_pol[i]*x**i 
+            ans += self.coeff_for_pol[len(self.coeff_for_pol) - i - 1]*x**i 
         return ans
 
     def __init__(self):
