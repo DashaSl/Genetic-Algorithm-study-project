@@ -104,5 +104,6 @@ void Population :: cutOldIndivids(int curIteration) {
     //в this->chromosomes оставить только те хромосомы, чей возраст + дата рождения не больше чем curIteration
 }
 
+void Population :: addAge() {
 
-
+}

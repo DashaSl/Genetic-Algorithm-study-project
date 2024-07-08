@@ -20,6 +20,7 @@ class Population{
         void sortPopulation();
         void addChildren(std::vector<Chromosome> &children, Polynomial &polynom);
         void cutOldIndivids(int curIteration);
+        void addAge();
         void mutationPopulation();
 };
 
