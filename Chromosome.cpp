@@ -2,7 +2,7 @@
 
 
 //done
-Chromosome::Chromosome(double probMutation, double down, double up, int number, int len, int methodmut, int methodrecomb) {
+Chromosome::Chromosome(double probMutation, double down, double up, int number, int len, int methodmut, int methodrecomb, int age, int birthDate) {
         this->metodRecomb = methodrecomb;
         this->methodMut = methodmut; 
         this->estimate = DBL_MAX;
@@ -15,22 +15,13 @@ Chromosome::Chromosome(double probMutation, double down, double up, int number, 
         this->up_border = up;
         this->max_mutation_step = MAX_MUT_STP;
         this->birthDate = birthDate;
+        this->age = age;
         std::random_device rd;  // Will be used to obtain a seed for the random number engine
         std::mt19937_64 gen(rd());//генерирует случайное целое 
         for(int i = 0; i <this->length; i++){
                 this->genes.push_back(dis(gen));
         }
 };  
-
-//done
-void Chromosome::print_test(){
-        std::cout << "-------------------\nChromosome data\n";
-        std::cout << number << " " << probMutation << " " << length << '\n';
-        std::cout << this->estimate <<' ' << this->max_mutation_step << '\n';
-        std::cout << this->down_border <<' ' << this->up_border << '\n';
-        for(auto val : this->genes) std::cout << val << ' ';
-        std::cout << "-------------------\n";        
-}
 
 //done
 std::vector<Chromosome> Chromosome::recombination(Chromosome parent1, Chromosome parent2, int method){

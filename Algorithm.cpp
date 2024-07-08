@@ -10,7 +10,9 @@ Algorithm::Algorithm(int count_individs, int count_steps, double probMutation, s
     this->polynom = polynom;
     this->population = population;
     this->iteration = iteration;
+    this->time = 0;
     this->criterion = criterion;
+    this->method = 1;
 };
 
 
@@ -23,8 +25,16 @@ bool compar(const Chromosome& left, const  Chromosome& right){
 
 
 std::vector<Chromosome> Algorithm :: stepHybridAlgorithm() {
-    this->population.elite_selection(this->polynom);
-    this->population.mutationPopulation();
+    this->time++;
+    if (this->method == 1) {
+        this->population.elite_selection(this->polynom);
+        this->population.mutationPopulation();
+    }
+    else {
+        int count = this->population.countIndivids * this->population.probReproduction;
+        this->population.addChildren(this->population.chromosomes, this->polynom, count);
+        this->population.cutOldIndivids(time);
+    }
     return this->top();
 };
 
@@ -44,9 +54,4 @@ std::vector<Chromosome> Algorithm::top() {
     return ans;
 }
 
-
-//std::vector<Chromosome> stepNonFixedSizeoplationGA(int iteration) {
-//    this->population.addChildren();
-//    this->population.cutOldIndivids(iteration)
-//}
 

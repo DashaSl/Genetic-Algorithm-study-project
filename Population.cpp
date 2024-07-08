@@ -2,7 +2,7 @@
 #include <algorithm>
 
 
-Population::Population(Polynomial &polynom, double down, double up, int count, int countStep, double probMutation) {
+Population::Population(Polynomial &polynom, double down, double up, int count, int countStep, double probMutation, double probReproduction) {
     if (count == 0) {
         return;
     }
@@ -15,10 +15,10 @@ Population::Population(Polynomial &polynom, double down, double up, int count, i
         new_chromosome.estimate = difference;
         this->chromosomes.push_back(new_chromosome);
         differences.push_back(difference);
-        new_chromosome.print_test();
     }
     this->countBestIndivids = countIndivids / 4 * 3;
     this->threshold = differences[this->countBestIndivids];
+    this->probReproduction = probReproduction;
 }
 
 
@@ -42,9 +42,9 @@ void Population::updatePopulation(std::vector<Chromosome> chroms) {
 }
 
 
-void Population::addChildren(std::vector<Chromosome> &children, Polynomial &polynom) {
+void Population::addChildren(std::vector<Chromosome> &children, Polynomial &polynom, int count) {
     double difference;
-    for (int i = 0; i < this->countIndivids; i++) {
+    for (int i = 0; i < count; i++) {
         int j = i;
         while (j == i) {
             j = rand() % (this->countIndivids);
@@ -57,6 +57,7 @@ void Population::addChildren(std::vector<Chromosome> &children, Polynomial &poly
         children.push_back(pair_children[0]);
         children.push_back(pair_children[1]);
     }
+    this->countIndivids = this->chromosomes.size();
 }
 
 void Population::elite_selection(Polynomial &polynom) {
@@ -67,7 +68,7 @@ void Population::elite_selection(Polynomial &polynom) {
     }
     this->updatePopulation(cutPopulation);
 
-    this->addChildren(cutPopulation, polynom);
+    this->addChildren(cutPopulation, polynom, this->countIndivids);
 
     this->updatePopulation(cutPopulation);
     for (int i = 0; i < cutPopulation.size(); i++) {
@@ -104,16 +105,16 @@ void Population :: cutOldIndivids(int curIteration) {
     //в this->chromosomes оставить только те хромосомы, чей возраст + дата рождения не больше чем curIteration
     auto iter = chromosomes.cbegin(); // указатель на первый элемент
     for (int i = 0; i < chromosomes.size(); i++) {
-    	if (chromosomes[i].age + chromosomes[i].birthDate > curIteration) {
-			chromosomes.erase(iter + i);
-    	}
+        if (chromosomes[i].age + chromosomes[i].birthDate > curIteration) {
+            chromosomes.erase(iter + i);
+        }
     }
 }
 
 void Population :: addAge(int maxAge) {
     int age;
-    for (int i = 0; i < this->cointIndivids; i++) {
+    for (int i = 0; i < this->countIndivids; i++) {
         age = maxAge - int(double(i) / countIndivids * maxAge);
-        this->chromosomes[i].age = age;
+       // this->chromosomes[i].age = age;
     }
 }
