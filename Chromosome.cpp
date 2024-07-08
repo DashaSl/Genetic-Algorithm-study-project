@@ -1,10 +1,21 @@
 #include "Chromosome.h"
 
 //done
-Chromosome::Chromosome(double probMutation, double down, double up, int number, int len) {
+
+double random_num(double a, double b){
+        std::random_device rd;  // Will be used to obtain a seed for the random number engine
+        std::mt19937_64 gen(rd());//генерирует случайное целое
+        std::uniform_real_distribution<> dis(a, b);
+
+        double answer = dis(gen); 
+        std::cout << "Random check: " << answer<<"\n";
+        return answer;       
+}
+
+Chromosome::Chromosome(double probMutationGen, double probMutationIndiv, double down, double up, int number, int len, int age) {
         this->estimate = DBL_MAX;
         this->number = number;
-        this->probMutation = probMutation;
+        this->probMutationGen = probMutationGen;
         this->length = len; 
         std::uniform_real_distribution<> dis(down, up);
         this->genes = {};
@@ -16,9 +27,14 @@ Chromosome::Chromosome(double probMutation, double down, double up, int number, 
         for(int i = 0; i <this->length; i++){
                 this->genes.push_back(dis(gen));
         }
+
+        //нововведения
+        this->age = age;
+        this->probMutationIndiv = probMutationIndiv;
 };  
 
 //done
+/*
 void Chromosome::print_test(){
         std::cout << "-------------------\nChromosome data\n";
         std::cout << number << " " << probMutation << " " << length << '\n';
@@ -27,7 +43,7 @@ void Chromosome::print_test(){
         for(auto val : this->genes) std::cout << val << ' ';
         std::cout << "-------------------\n";        
 }
-
+*/
 //done
 std::vector<Chromosome> Chromosome::recombination(Chromosome parent1, Chromosome parent2, int method){
         std::vector<Chromosome> answer;
@@ -39,20 +55,14 @@ std::vector<Chromosome> Chromosome::recombination(Chromosome parent1, Chromosome
 
 //done
 double Chromosome::new_gene(double old_gene){
-
-
-
-        std::random_device rd;  // Will be used to obtain a seed for the random number engine
-        std::mt19937_64 gen(rd());//генерирует случайное целое
-        std::uniform_real_distribution<> dis(old_gene - max_mutation_step, old_gene + max_mutation_step);
-
-        double answer = dis(gen);
-
+        double answer = random_num(old_gene - max_mutation_step, old_gene + max_mutation_step); 
         return answer;
-
 }
 
 void Chromosome::mutate(int method){
+        double prob = random_num(0.0, 1.0);
+
+        if(prob > this->probMutationIndiv) return;
         if(method == 0){
                 this->mutate_dumb(); 
         }
@@ -69,6 +79,8 @@ void Chromosome::mutate_dumb(){
                 }
         }
 }
+
+
 
 //done
 void Chromosome::discr_recomb(Chromosome parent1, Chromosome parent2, std::vector<Chromosome> &answer){
