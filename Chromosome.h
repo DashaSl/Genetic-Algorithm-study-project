@@ -8,7 +8,7 @@
 
 class Chromosome {
     public:
-        double probMutationGen;
+        double probMutation;
         int number;
         std::vector<double> genes;
         int length;
@@ -16,10 +16,8 @@ class Chromosome {
         double down_border;
         double up_border;
         double estimate;
-        double probMutationIndiv;
         int age;
         int birthDate;
-
         Chromosome(double probMutation, double down, double up, int number, int len, int birthDate);
         //В других классах и функциях используются только эти две функции
         static std::vector<Chromosome> recombination(Chromosome parent1, Chromosome parent2, int method = 0);

@@ -5,7 +5,7 @@ import time
 import sys
 from PyQt6 import QtCore
 from PyQt6.QtCore import Qt, QSize
-from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow, QTextEdit, QPushButton, QVBoxLayout, QWidget, QLineEdit
+from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow, QTextEdit, QPushButton, QVBoxLayout, QWidget, QLineEdit, QGridLayout
 import pyqtgraph as pg
 import math
 
@@ -169,7 +169,19 @@ class MainWindow(QMainWindow):
         self.three_graph = ThreeGraph()
 
 
-        layout = QVBoxLayout()
+        layout = QGridLayout()
+        
+        layout.addWidget(self.esteem_graph, 0, 0, 5, 5)
+        layout.addWidget(self.three_graph, 0, 5, 5, 5)
+        layout.addWidget(self.line_for_coeff, 5, 0, 1, 9)
+        layout.addWidget(self.line_for_start, 6, 0, 1, 9)
+        layout.addWidget(self.line_for_finish, 7, 0, 1, 9)
+        layout.addWidget(self.line_for_num_of_steps, 8, 0, 1, 9)
+        layout.addWidget(self.line_for_num_of_indiv, 9, 0, 1, 9)
+        layout.addWidget(self.line_for_num_of_iter, 10, 0, 1, 9)
+        layout.addWidget(self.line_for_prob, 11, 0, 1, 9)
+        layout.addWidget(self.line_for_crit, 12, 0, 1, 9)
+        """
         layout.addWidget(self.esteem_graph, stretch = 1, alignment =  Qt.AlignmentFlag.AlignLeft)
         layout.addWidget(self.three_graph, stretch = 1, alignment =  Qt.AlignmentFlag.AlignRight)
         layout.addWidget(self.line_for_coeff, alignment = Qt.AlignmentFlag.AlignRight)
@@ -180,10 +192,10 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.line_for_num_of_iter, alignment = Qt.AlignmentFlag.AlignRight)
         layout.addWidget(self.line_for_prob, alignment = Qt.AlignmentFlag.AlignRight)
         layout.addWidget(self.line_for_crit, alignment = Qt.AlignmentFlag.AlignRight)
-
-        layout.addWidget(self.button, alignment = Qt.AlignmentFlag.AlignLeft)
-        layout.addWidget(self.fast_button, alignment = Qt.AlignmentFlag.AlignLeft)
-        layout.addWidget(self.button_start, alignment = Qt.AlignmentFlag.AlignLeft)
+        """
+        layout.addWidget(self.button, 5, 9 , 1, 1)
+        layout.addWidget(self.fast_button, 6, 9, 1, 1)
+        layout.addWidget(self.button_start, 7, 9, 1, 1)
 
         container = QWidget()
         container.setLayout(layout)
@@ -227,9 +239,8 @@ class MainWindow(QMainWindow):
 
     def do_step(self):
         self.counter+=1
-        if self.counter >= self.num_of_iter:
-            return
         chromes, estems = self.alg.step()
+        print("did step: ", self.counter)
 
         est = min(estems)
         self.curr_best = est
@@ -239,12 +250,34 @@ class MainWindow(QMainWindow):
             self.button.setEnabled(False)
             self.fast_button.setEnabled(False)
 
+
+    def do_step_without_draw(self):
+        self.counter+=1
+        chromes, estems = self.alg.step()
+        print("did step: ", self.counter)
+        est = min(estems)
+        self.curr_best = est
+        self.esteem_graph.update(est)
+        if self.counter >= self.num_of_iter:
+            self.button.setEnabled(False)
+            self.fast_button.setEnabled(False)
+            return chromes
+        return chromes
+
+
     def the_button_was_clicked(self):
         self.do_step()
+        if self.counter > self.num_of_iter:
+            self.button.setEnabled(False)
+            self.fast_button.setEnabled(False)
+           
 
     def go_on_without_stop(self):
-        for _ in range(self.counter, self.num_of_iter):
-            self.do_step()
+        for i in range(self.counter, self.num_of_iter - 2):
+            self.do_step_without_draw()
+        chromes = self.do_step_without_draw()
+        self.three_graph.update(chromes[0], chromes[1], chromes[2])
+        
 
 
 app = QApplication([])
