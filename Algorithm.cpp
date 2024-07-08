@@ -43,3 +43,9 @@ std::vector<Chromosome> Algorithm::top() {
     std::sort(begin(ans), end(ans), compar);
     return ans;
 }
+
+
+//std::vector<Chromosome> stepNonFixedSizeoplationGA() {
+//
+//}
+

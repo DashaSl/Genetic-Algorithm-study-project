@@ -12,7 +12,7 @@ double random_num(double a, double b){
         return answer;       
 }
 
-Chromosome::Chromosome(double probMutationGen, double probMutationIndiv, double down, double up, int number, int len, int age) {
+Chromosome::Chromosome(double probMutationGen, double probMutationIndiv, double down, double up, int number, int len, int age, int birthDate) {
         this->estimate = DBL_MAX;
         this->number = number;
         this->probMutationGen = probMutationGen;
@@ -22,6 +22,7 @@ Chromosome::Chromosome(double probMutationGen, double probMutationIndiv, double 
         this->down_border = down;
         this->up_border = up;
         this->max_mutation_step = MAX_MUT_STP;
+        this->birthDate = birthDate;
         std::random_device rd;  // Will be used to obtain a seed for the random number engine
         std::mt19937_64 gen(rd());//генерирует случайное целое 
         for(int i = 0; i <this->length; i++){

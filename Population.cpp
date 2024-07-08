@@ -10,7 +10,7 @@ Population::Population(Polynomial &polynom, double down, double up, int count, i
     this->countIndivids = count;
     std::vector<double> differences;
     for (int i = 0; i < count; i++) {
-        Chromosome new_chromosome = Chromosome(probMutation, down, up, i + 1, countStep);
+        Chromosome new_chromosome = Chromosome(probMutation, down, up, i + 1, countStep, 0);
         difference = polynom.Evaluation(new_chromosome);
         new_chromosome.estimate = difference;
         this->chromosomes.push_back(new_chromosome);
@@ -76,13 +76,33 @@ void Population::elite_selection(Polynomial &polynom) {
     this->updatePopulation(newPopulation);
 }
 
-void Population:: truncation_selection(Polynomial &polynom) {
 
-}
+//void Population:: truncation_selection(Polynomial &polynom, int count) {
+//    std::vector<Chromosome> newPopulation;
+//    if (this->countIndivids < count) {
+//        count = countIndivids;
+//    }
+//    for (int i = 0; i < count, i++) {
+//        newPopulation.push_back(this->chromosomes[i]);
+//    }
+//    int j;
+//    while (newPopulation.size() < this->countIndivids) {
+//        j = rand() % (this->count);
+//        newPopulation.push_back(this->chromosomes[j]);
+//    }
+//    this->updatePopulation(newPopulation);
+//}
+
 
 void Population:: mutationPopulation() {
     for (int i = 0; i < this->countIndivids; i++) {
         this->chromosomes[i].mutate();
     }
 }
+
+void Population :: cutOldIndivids(int curIteration) {
+    //в this->chromosomes оставить только те хромосомы, чей возраст + дата рождения не больше чем curIteration
+}
+
+
 

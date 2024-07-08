@@ -18,8 +18,9 @@ class Chromosome {
         double estimate;
         double probMutationIndiv;
         int age;
+        int birthDate;
 
-        Chromosome(double probMutation, double down, double up, int number, int len);
+        Chromosome(double probMutation, double down, double up, int number, int len, int birthDate);
         //В других классах и функциях используются только эти две функции
         static std::vector<Chromosome> recombination(Chromosome parent1, Chromosome parent2, int method = 0);
         void mutate(int method = 0);
