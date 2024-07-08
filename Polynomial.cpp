@@ -17,13 +17,6 @@ double Polynomial:: getValue(double x) {
         return value;
 }
 
-void Polynomial::print() {
-        for (int i = 0; i < this->coeficients.size(); i++){
-                std::cout << this->coeficients[i] << ' ';
-        }
-        std::cout << '\n';
-}
-
 double Polynomial::Evaluation(Chromosome& chromosome) {
 	double stairLen = (right - left) / chromosome.length;	//length of one stair 
 	double h = stairLen / STEPS;	//distance between calculation points
