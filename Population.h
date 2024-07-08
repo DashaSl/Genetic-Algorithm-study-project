@@ -16,8 +16,11 @@ class Population{
         void updatePopulation(std::vector<Chromosome> chromosomes);
         //реализовать ЭЛИТАРНЫЙ ОТБОР
         void elite_selection(Polynomial &polynom); // элитарный отбор
+        //void truncation_selection(Polynomial &polynom);
         void sortPopulation();
         void addChildren(std::vector<Chromosome> &children, Polynomial &polynom);
+        void cutOldIndivids(int curIteration);
+        void addAge(int maxAge);
         void mutationPopulation();
 };
 
