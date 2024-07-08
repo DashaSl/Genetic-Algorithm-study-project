@@ -16,11 +16,15 @@ class Chromosome {
         double down_border;
         double up_border;
         double estimate;
+
         int metodRecomb;
         int methodMut; 
         int age;
+
         int birthDate;
-        Chromosome(double probMutation, double down, double up, int number, int len, int metodmut = 0, int methodrecomb = 0, int age = 1, int birtdate = 1);
+
+        Chromosome(double probMutation, double down, double up, int number, int len, int metodmut = 0, int methodrecomb = 0, int age = 1, int birthdate = 0);
+
         //В других классах и функциях используются только эти две функции
         static std::vector<Chromosome> recombination(Chromosome parent1, Chromosome parent2, int method = 0);
         void mutate(int method = 0);
@@ -28,5 +32,4 @@ class Chromosome {
         void mutate_dumb();
         double new_gene(double old_gene);
         static void discr_recomb(Chromosome parent1, Chromosome parent2, std::vector<Chromosome>& answer);
-        void print_test();
 };
