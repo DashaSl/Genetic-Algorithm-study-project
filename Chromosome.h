@@ -4,7 +4,7 @@
 #include <limits>
 #include <cfloat>
 
-#define MAX_MUT_STP 2.5 //поменять, когда станет понятно
+#define MAX_MUT_STP 0.002 //поменять, когда станет понятно
 
 class Chromosome {
     public:

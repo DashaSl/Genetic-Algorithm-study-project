@@ -15,7 +15,7 @@ Population::Population(Polynomial &polynom, double down, double up, int count, i
         new_chromosome.estimate = difference;
         this->chromosomes.push_back(new_chromosome);
         differences.push_back(difference);
-        new_chromosome.print_test();
+        //new_chromosome.print_test();
     }
     this->countBestIndivids = countIndivids / 4 * 3;
     this->threshold = differences[this->countBestIndivids];

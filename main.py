@@ -173,14 +173,14 @@ class MainWindow(QMainWindow):
         
         layout.addWidget(self.esteem_graph, 0, 0, 5, 5)
         layout.addWidget(self.three_graph, 0, 5, 5, 5)
-        layout.addWidget(self.line_for_coeff, 5, 0, 1, 9)
-        layout.addWidget(self.line_for_start, 6, 0, 1, 9)
-        layout.addWidget(self.line_for_finish, 7, 0, 1, 9)
-        layout.addWidget(self.line_for_num_of_steps, 8, 0, 1, 9)
-        layout.addWidget(self.line_for_num_of_indiv, 9, 0, 1, 9)
-        layout.addWidget(self.line_for_num_of_iter, 10, 0, 1, 9)
-        layout.addWidget(self.line_for_prob, 11, 0, 1, 9)
-        layout.addWidget(self.line_for_crit, 12, 0, 1, 9)
+        layout.addWidget(self.line_for_coeff, 5, 0, 1, 7)
+        layout.addWidget(self.line_for_start, 6, 0, 1, 7)
+        layout.addWidget(self.line_for_finish, 7, 0, 1, 7)
+        layout.addWidget(self.line_for_num_of_steps, 8, 0, 1, 7)
+        layout.addWidget(self.line_for_num_of_indiv, 9, 0, 1, 7)
+        layout.addWidget(self.line_for_num_of_iter, 10, 0, 1, 7)
+        layout.addWidget(self.line_for_prob, 11, 0, 1, 7)
+        layout.addWidget(self.line_for_crit, 12, 0, 1, 7)
         """
         layout.addWidget(self.esteem_graph, stretch = 1, alignment =  Qt.AlignmentFlag.AlignLeft)
         layout.addWidget(self.three_graph, stretch = 1, alignment =  Qt.AlignmentFlag.AlignRight)
@@ -193,6 +193,7 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.line_for_prob, alignment = Qt.AlignmentFlag.AlignRight)
         layout.addWidget(self.line_for_crit, alignment = Qt.AlignmentFlag.AlignRight)
         """
+        
         layout.addWidget(self.button, 5, 9 , 1, 1)
         layout.addWidget(self.fast_button, 6, 9, 1, 1)
         layout.addWidget(self.button_start, 7, 9, 1, 1)
