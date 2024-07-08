@@ -31,5 +31,3 @@ class Chromosome {
         static void discr_recomb(Chromosome parent1, Chromosome parent2, std::vector<Chromosome>& answer);
         //void print_test();
 };
-
-double random_num(double a, double b);
