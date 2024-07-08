@@ -60,7 +60,9 @@ double Chromosome::new_gene(double old_gene){
 }
 
 void Chromosome::mutate(int method){
+        double prob = random_num(0.0, 1.0);
 
+        if(prob > this->probMutationIndiv) return;
         if(method == 0){
                 this->mutate_dumb(); 
         }
