@@ -1,5 +1,6 @@
 #include "Chromosome.h"
 
+
 //done
 Chromosome::Chromosome(double probMutation, double down, double up, int number, int len, int methodmut, int methodrecomb,int age, int birtdate) {
         this->metodRecomb = methodrecomb;
@@ -15,6 +16,7 @@ Chromosome::Chromosome(double probMutation, double down, double up, int number, 
         this->down_border = down;
         this->up_border = up;
         this->max_mutation_step = MAX_MUT_STP;
+        this->birthDate = birthDate;
         std::random_device rd;  // Will be used to obtain a seed for the random number engine
         std::mt19937_64 gen(rd());//генерирует случайное целое 
         for(int i = 0; i <this->length; i++){
@@ -102,10 +104,3 @@ void Chromosome::discr_recomb(Chromosome parent1, Chromosome parent2, std::vecto
         //number - обновляется в популяции
                 //вероятность мутации тоже одинаковая
 }
-
-
-//New recombination and mutation methods
-
-//double random_double(double a, double b){
-    
-//}

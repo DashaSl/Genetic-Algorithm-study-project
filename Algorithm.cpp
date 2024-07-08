@@ -43,3 +43,10 @@ std::vector<Chromosome> Algorithm::top() {
     std::sort(begin(ans), end(ans), compar);
     return ans;
 }
+
+
+//std::vector<Chromosome> stepNonFixedSizeoplationGA(int iteration) {
+//    this->population.addChildren();
+//    this->population.cutOldIndivids(iteration)
+//}
+
