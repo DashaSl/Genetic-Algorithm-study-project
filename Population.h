@@ -22,7 +22,6 @@ class Population{
         void addChildren(std::vector<Chromosome> &children, Polynomial &polynom, int count, int time);
         void cutOldIndivids(int curIteration);
         void addAge(int maxAge);
-        void mutationPopulation();
 };
 
 #endif

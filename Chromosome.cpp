@@ -13,7 +13,7 @@ Chromosome::Chromosome(double probMutation, double down, double up, int number, 
         this->genes = {};
         this->down_border = down;
         this->up_border = up;
-        this->max_mutation_step = MAX_MUT_STP;
+        this->max_mutation_step = (up - down) / 10;
         this->birthDate = birthDate;
         this->age = age;
         std::random_device rd;  // Will be used to obtain a seed for the random number engine
