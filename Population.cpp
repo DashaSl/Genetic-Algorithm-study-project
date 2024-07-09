@@ -2,7 +2,7 @@
 #include <algorithm>
 
 
-Population::Population(Polynomial &polynom, double down, double up, int count, int countStep, double probMutation, double probReproduction) {
+Population::Population(Polynomial &polynom, double down, double up, int count, int countStep, double probMutation, double probReproduction, int method_mut, int method_recomb) {
     if (count == 0) {
         return;
     }
@@ -10,7 +10,7 @@ Population::Population(Polynomial &polynom, double down, double up, int count, i
     this->countIndivids = count;
     std::vector<double> differences;
     for (int i = 0; i < count; i++) {
-        Chromosome new_chromosome = Chromosome(probMutation, down, up, i + 1, countStep, 0);
+        Chromosome new_chromosome = Chromosome(probMutation, down, up, i + 1, countStep, method_mut, method_recomb);
         difference = polynom.Evaluation(new_chromosome);
         new_chromosome.estimate = difference;
         this->chromosomes.push_back(new_chromosome);
