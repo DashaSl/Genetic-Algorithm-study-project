@@ -279,6 +279,7 @@ class MainWindow(QMainWindow):
 
         self.esteem_graph.start(self.num_of_iter)
         self.three_graph.start(self.start, self.finish, y_data)
+        print("PROOOOOOB: ", self.prob_recomb)
         self.alg = Algorithm(self.num_of_indiv, self.num_of_step, self.prob, self.coeff_for_pol, self.num_of_iter, self.criteria, self.start, self.finish, self.meth, self.meth_mut, self.meth_pro, self.prob_recomb)
 
 
