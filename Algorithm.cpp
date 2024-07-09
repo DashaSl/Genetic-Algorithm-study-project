@@ -15,7 +15,7 @@ Algorithm::Algorithm(int count_individs, int count_steps, double probMutation, s
     this->iteration = iteration;
     this->time = 0;
     this->criterion = criterion;
-    this->method = 1;
+    this->method = method;
 };
 
 

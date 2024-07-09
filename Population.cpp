@@ -123,8 +123,8 @@ void Population :: addAge(int maxAge) {
         if (this->chromosomes[i].age == -1) {
             age = maxAge - int(double(i) / countIndivids * maxAge);
             this->chromosomes[i].age = age;
-            std::cout << this->chromosomes[i].age << ' ';
+
         }
     }
-    std::cout << '\n';
+
 }

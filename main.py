@@ -184,7 +184,11 @@ class MainWindow(QMainWindow):
         self.criteria = 0.001 #значения по умолчанию
         self.num_of_indiv = 8
         self.curr_best = 9999999.9
-        self.alg = Algorithm(self.num_of_indiv, self.num_of_step, self.prob, self.coeff_for_pol, self.num_of_iter, self.criteria, self.start, self.finish)
+        self.meth_mut = 0
+        self.meth_pro = 0
+        self.meth = 1#простой, 2 сложный
+        self.prob_recomb = 0.5
+        self.alg = Algorithm(self.num_of_indiv, self.num_of_step, self.prob, self.coeff_for_pol, self.num_of_iter, self.criteria, self.start, self.finish, self.meth, self.meth_mut, self.meth_pro, self.prob_recomb)
 
 
         self.esteem_graph = EsteemGraph()
@@ -252,6 +256,10 @@ class MainWindow(QMainWindow):
             self.prob = float(self.line_for_prob.text())
             self.criteria = float(self.line_for_crit.text())
             self.name_message.setText("")
+            self.meth_mut = self.box_for_mut_method.currentIndex()
+            self.meth_pro = self.box_for_recomb_method.currentIndex()
+            self.meth = self.box_for_popul_type.currentIndex()
+            self.prob_recomb = float(self.line_prob_recomb.text())
         except ValueError:
             self.name_message.setText("неправильный ввод!")
             return
@@ -271,7 +279,7 @@ class MainWindow(QMainWindow):
 
         self.esteem_graph.start(self.num_of_iter)
         self.three_graph.start(self.start, self.finish, y_data)
-        self.alg = Algorithm(self.num_of_indiv, self.num_of_step, self.prob, self.coeff_for_pol, self.num_of_iter, self.criteria, self.start, self.finish)
+        self.alg = Algorithm(self.num_of_indiv, self.num_of_step, self.prob, self.coeff_for_pol, self.num_of_iter, self.criteria, self.start, self.finish, self.meth, self.meth_mut, self.meth_pro, self.prob_recomb)
 
 
 

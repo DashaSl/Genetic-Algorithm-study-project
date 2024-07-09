@@ -3,7 +3,7 @@
 extern "C" {
 
 
-    Algorithm* init_alg(int count_individs, int count_steps, double probMutation, double* mass_coefs_polynom, int size, int iteration, double criterion, double left, double right);
+    Algorithm* init_alg(int count_individs, int count_steps, double probMutation, double* mass_coefs_polynom, int size, int iteration, double criterion, double left, double right, int method, int method_mut, int method_recomb, double probReproduction);
     void del_alg(Algorithm* alg);
 
     Chromosome* init_crm(double probMutation =0.1, double down = 0, double up = 7, int number = 1, int len = 1);

@@ -1,12 +1,12 @@
 #include "bibl.h"
 
-extern "C" Algorithm* init_alg(int count_individs, int count_steps, double probMutation, double* mass_coefs_polynom, int size, int iteration, double criterion, double left, double right){
+extern "C" Algorithm* init_alg(int count_individs, int count_steps, double probMutation, double* mass_coefs_polynom, int size, int iteration, double criterion, double left, double right, int method, int method_mut, int method_recomb, double probReproduction){
     //массив double в std::vector<double> coefs_polynom, после коэфф добавляется размер массива
     std::vector<double> coefs_polynom = {};
     for(int i = 0; i < size; i++){
         coefs_polynom.push_back(mass_coefs_polynom[i]);
     }
-    return new Algorithm(count_individs, count_steps, probMutation, coefs_polynom, iteration, criterion, left, right);
+    return new Algorithm(count_individs, count_steps, probMutation, coefs_polynom, iteration, criterion, left, right, method, method_mut, method_recomb, probReproduction);
 }
 
 extern "C" void del_alg(Algorithm* alg){

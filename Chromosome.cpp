@@ -30,6 +30,8 @@ Chromosome::Chromosome(double probMutation, double down, double up, int number, 
 std::vector<Chromosome> Chromosome::recombination(Chromosome parent1, Chromosome parent2, int method){
         std::vector<Chromosome> answer;
         if(method == 0){
+                discr_recomb(parent1, parent2, answer);
+        }else{
                 inter_recomb(parent1, parent2, answer);
         }
         return answer;
@@ -49,7 +51,9 @@ double Chromosome::new_gene(double old_gene){
 
 void Chromosome::mutate(int method){
         if(method == 0){
-                this->mutate_better(); 
+                this->mutate_dumb(); 
+        }else{
+                this->mutate_better();
         }
 }
 
