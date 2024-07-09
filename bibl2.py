@@ -4,7 +4,7 @@ import ctypes
 bibl = ctypes.CDLL('./bibl.so')
 
 bibl.init_alg.restype = ctypes.c_void_p
-bibl.init_alg.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_double, ctypes.POINTER(ctypes.c_double), ctypes.c_int, ctypes.c_int, ctypes.c_double, ctypes.c_double, ctypes.c_double]
+bibl.init_alg.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_double, ctypes.POINTER(ctypes.c_double), ctypes.c_int, ctypes.c_int, ctypes.c_double, ctypes.c_double, ctypes.c_double, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_double]
 
 bibl.del_alg.restype = ctypes.c_void_p
 bibl.del_alg.argtypes = [ctypes.c_void_p]
@@ -28,10 +28,10 @@ bibl.chromosome_len.restype = ctypes.c_int
 bibl.chromosome_len.argtypes = [ctypes.c_void_p]
 
 class Algorithm:
-    def __init__(self, count_individs, count_steps, probMutation, mass_coefs_polynom, iteration, criterion, left, right):
+    def __init__(self, count_individs, count_steps, probMutation, mass_coefs_polynom, iteration, criterion, left, right, method, method_mut, method_rec, prob_recom):
         leng =len(mass_coefs_polynom)
         c_array = (ctypes.c_double*leng)(*mass_coefs_polynom)
-        self.obj = bibl.init_alg(count_individs, count_steps, probMutation, c_array, leng, iteration, criterion, left, right)
+        self.obj = bibl.init_alg(count_individs, count_steps, probMutation, c_array, leng, iteration, criterion, left, right, method, method_mut, method_rec, prob_recom)
         self.nestor = []
         self.current_iteration = 0
     def __del__(self):

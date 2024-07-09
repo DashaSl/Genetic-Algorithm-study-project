@@ -13,7 +13,7 @@ class Population{
         double probReproduction;
         int countBestIndivids;
         
-        Population(Polynomial &polynom, double down = 0, double up = 100, int countIndivids = 50, int countSteps = 10, double probMutation = 0.2, double probReproduction = 0.6, int method_mut, int method_recomb); // генерируется популяция из count_individs особей 
+        Population(Polynomial &polynom, double down = 0, double up = 100, int countIndivids = 50, int countSteps = 10, double probMutation = 0.2, double probReproduction = 0.6, int method_mut = 0, int method_recomb = 0); // генерируется популяция из count_individs особей 
         void updatePopulation(std::vector<Chromosome> chromosomes);
         //реализовать ЭЛИТАРНЫЙ ОТБОР
         void elite_selection(Polynomial &polynom); // элитарный отбор
