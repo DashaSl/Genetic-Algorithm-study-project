@@ -1,8 +1,7 @@
 #include "Algorithm.h"
 #include <algorithm>
 
-
-Algorithm::Algorithm(int count_individs, int count_steps, double probMutation, std::vector<double> coefs_polynom, int iteration, double criterion, double left, double right) {
+Algorithm::Algorithm(int count_individs, int count_steps, double probMutation, std::vector<double> coefs_polynom, int iteration, double criterion, double left, double right, int method, int method_mut, int method_recomb, double probReproduction) {
     Polynomial polynom = Polynomial(coefs_polynom, left, right);
     std::vector<double> values;
     for (double x = left; x < right; x += (right - left) / 1000) {
@@ -10,7 +9,7 @@ Algorithm::Algorithm(int count_individs, int count_steps, double probMutation, s
     }
     double down = *std::min_element(begin(values), end(values));
     double up = *std::max_element(begin(values), end(values));
-    Population population = Population(polynom, down, up, count_individs, count_steps, probMutation, 0.3);
+    Population population = Population(polynom, down, up, count_individs, count_steps, probMutation, probReproduction, method_mut, method_recomb);
     this->polynom = polynom;
     this->population = population;
     this->iteration = iteration;
