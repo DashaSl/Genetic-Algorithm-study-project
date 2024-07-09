@@ -4,8 +4,14 @@
 
 Algorithm::Algorithm(int count_individs, int count_steps, double probMutation, std::vector<double> coefs_polynom, int iteration, double criterion, double left, double right) {
     Polynomial polynom = Polynomial(coefs_polynom, left, right);
-    double down = fmin(polynom.getValue(left), polynom.getValue(right)) / 2;
-    double up = fmax(polynom.getValue(left), polynom.getValue(right)) * 2;
+
+    std::vector<double> values;
+    for (double x = left; x < right; x += (right - left) / 1000) {
+    	values.push_back(polynom.getValue(x));
+    }
+    double down = *std::min_element(begin(values), end(values));
+    double up = *std::max_element(begin(values), end(values));
+
     Population population = Population(polynom, down, up, count_individs, count_steps, probMutation);
     this->polynom = polynom;
     this->population = population;
