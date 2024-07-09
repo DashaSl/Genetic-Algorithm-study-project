@@ -34,9 +34,6 @@ std::vector<Chromosome> Chromosome::recombination(Chromosome parent1, Chromosome
 
 //done
 double Chromosome::new_gene(double old_gene){
-
-
-
         std::random_device rd;  // Will be used to obtain a seed for the random number engine
         std::mt19937_64 gen(rd());//генерирует случайное целое
         std::uniform_real_distribution<> dis(old_gene - max_mutation_step, old_gene + max_mutation_step);
