@@ -12,7 +12,7 @@ Algorithm::Algorithm(int count_individs, int count_steps, double probMutation, s
     this->iteration = iteration;
     this->time = 0;
     this->criterion = criterion;
-    this->method = 1;
+    this->method = 0;
 };
 
 
@@ -25,16 +25,21 @@ bool compar(const Chromosome& left, const  Chromosome& right){
 
 
 std::vector<Chromosome> Algorithm :: stepHybridAlgorithm() {
-    this->time++;
-    if (this->method == 1) {
-        this->population.elite_selection(this->polynom);
+    if (this->method == 0) {
+        this->population.elite_selection(this->polynom, time);
         this->population.mutationPopulation();
     }
     else {
-        int count = this->population.countIndivids * this->population.probReproduction;
-        this->population.addChildren(this->population.chromosomes, this->polynom, count);
+        int count = int(this->population.countIndivids * this->population.probReproduction);
+        this->time++;
+        this->population.addChildren(this->population.chromosomes, this->polynom, count, time);
+        this->population.sortPopulation();
+        this->population.addAge(2);
+        std::cout << this->population.chromosomes.size() << "\n";
         this->population.cutOldIndivids(time);
+
     }
+    std::cout << this->population.chromosomes.size() << "\n";
     return this->top();
 };
 
