@@ -49,7 +49,7 @@ double Chromosome::new_gene(double old_gene){
 
 void Chromosome::mutate(int method){
         if(method == 0){
-                this->mutate_dumb(); 
+                this->mutate_better(); 
         }
 }
 
@@ -125,3 +125,27 @@ void Chromosome::inter_recomb(Chromosome parent1, Chromosome parent2, std::vecto
         answer.push_back(kid2);        
 }
 
+double calc_d(){
+        double ans = 0;
+        double a;
+        int m = 20;
+        for(int i = 0; i < m; i++){
+                if(random_number(0, 1) < 0.05) a = 1; else a = 0;
+                ans += a*pow(2, -i);
+        }
+        return ans;
+}
+
+void Chromosome::mutate_better(){
+        std::random_device rd;  // Will be used to obtain a seed for the random number engine
+        std::mt19937_64 gen(rd());//генерирует случайное целое
+        std::uniform_real_distribution<> dis(0, 1);
+        double a = (this->up_border - this->down_border)/2;
+        for(auto& val: this->genes){
+                if(dis(gen) < probMutation){
+                        int sign = 1;
+                        if(floor(random_number(0, 2)) < 1) sign = -1;
+                        val += sign*a*calc_d();
+                }
+        }
+}

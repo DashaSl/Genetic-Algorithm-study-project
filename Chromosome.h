@@ -3,6 +3,7 @@
 #include <random>
 #include <limits>
 #include <cfloat>
+#include <math.h>
 
 #define MAX_MUT_STP 0.02 //поменять, когда станет понятно
 
@@ -28,6 +29,7 @@ class Chromosome {
         //В других классах и функциях используются только эти две функции
         static std::vector<Chromosome> recombination(Chromosome parent1, Chromosome parent2, int method = 0);
         void mutate(int method = 0);
+        void mutate_better();
 
         void mutate_dumb();
         double new_gene(double old_gene);
@@ -35,3 +37,4 @@ class Chromosome {
         static void inter_recomb(Chromosome parent1, Chromosome parent2, std::vector<Chromosome>& answer);
 };
 double random_number(double a, double b);
+double calc_d();
