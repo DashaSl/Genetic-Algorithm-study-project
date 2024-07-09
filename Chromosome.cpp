@@ -7,7 +7,7 @@ Chromosome::Chromosome(double probMutation, double down, double up, int number, 
         this->metodRecomb = methodrecomb;
         this->methodMut = methodmut; 
         this->age = age;
-        this->birthDate = birtdate;
+        this->birthDate = birthdate;
         this->estimate = DBL_MAX;
         this->number = number;
         this->probMutation = probMutation;
@@ -96,3 +96,35 @@ void Chromosome::discr_recomb(Chromosome parent1, Chromosome parent2, std::vecto
         //number - обновляется в популяции
                 //вероятность мутации тоже одинаковая
 }
+
+
+//Нововведения
+
+double Chromosome::random_number(double a, double b){
+        std::random_device rd;  // Will be used to obtain a seed for the random number engine
+        std::mt19937_64 gen(rd());//генерирует случайное целое
+        std::uniform_real_distribution<> dis(a, b);
+
+        double answer = dis(gen);
+
+        return answer;        
+}
+
+void Chromosome::inter_recomb(Chromosome parent1, Chromosome parent2, std::vector<Chromosome> &answer){
+        Chromosome kid1 = parent1;
+        Chromosome kid2 = parent2;
+        kid1.genes = {};
+        kid2.genes = {};
+        for(int i = 0; i < parent1.genes.size(); i++){
+                double a = random_number(-0.25, 1.25);
+                double new_val = parent1.genes[i] + a*(parent2.genes[i] - parent1.genes[i]);
+                kid1.genes.push_back(new_val);
+                a = random_number(-0.25, 1.25);
+                new_val = parent1.genes[i] + a*(parent2.genes[i] - parent1.genes[i]);
+                kid2.genes.push_back(new_val);
+        }
+
+        answer.push_back(kid1);
+        answer.push_back(kid2);        
+}
+
