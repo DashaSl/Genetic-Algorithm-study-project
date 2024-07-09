@@ -10,13 +10,13 @@ Algorithm::Algorithm(int count_individs, int count_steps, double probMutation, s
     }
     double down = *std::min_element(begin(values), end(values));
     double up = *std::max_element(begin(values), end(values));
-    Population population = Population(polynom, down, up, count_individs, count_steps, probMutation);
+    Population population = Population(polynom, down, up, count_individs, count_steps, probMutation, 0.3);
     this->polynom = polynom;
     this->population = population;
     this->iteration = iteration;
     this->time = 0;
     this->criterion = criterion;
-    this->method = 0;
+    this->method = 1;
 };
 
 
@@ -28,18 +28,19 @@ bool compar(const Chromosome& left, const  Chromosome& right){
 }
 
 
-std::vector<Chromosome> Algorithm :: stepHybridAlgorithm() {
+std::vector<Chromosome> Algorithm :: stepAlgorithm() {
     if (this->method == 0) {
-        this->population.elite_selection(this->polynom, time);
+        this->population.elite_selection(this->polynom);
     }
     else {
-        int count = int(this->population.countIndivids * this->population.probReproduction);
         this->time++;
-        this->population.addChildren(this->population.chromosomes, this->polynom, count, time);
+        std::cout << this->population.chromosomes.size() << "\n";
+        this->population.updateNonfixed(this->polynom, this->time);
         this->population.sortPopulation();
-        this->population.addAge(2);
+        this->population.addAge(3);
         std::cout << this->population.chromosomes.size() << "\n";
         this->population.cutOldIndivids(time);
+        this->population.sortPopulation();
 
     }
     std::cout << this->population.chromosomes.size() << "\n";
