@@ -310,7 +310,7 @@ class MainWindow(QMainWindow):
 
     def the_button_was_clicked(self):
         self.do_step()
-        if self.counter > self.num_of_iter:
+        if self.counter > self.num_of_iter or self.curr_best < self.criteria:
             self.button.setEnabled(False)
             self.fast_button.setEnabled(False)
            
