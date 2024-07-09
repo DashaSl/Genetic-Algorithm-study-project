@@ -5,7 +5,7 @@ import time
 import sys
 from PyQt6 import QtCore
 from PyQt6.QtCore import Qt, QSize
-from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow, QTextEdit, QPushButton, QVBoxLayout, QWidget, QLineEdit, QGridLayout
+from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow, QTextEdit, QPushButton, QVBoxLayout, QWidget, QLineEdit, QGridLayout, QComboBox
 import pyqtgraph as pg
 import math
 
@@ -15,6 +15,9 @@ class EsteemGraph(pg.PlotWidget):
     def __init__(self):
         super().__init__()
     def start(self, num_of_iter):
+        self.setTitle("Значение оценочной функции от итерации")
+        self.setLabel("left", "оценочная функция")
+        self.setLabel("bottom", "номер итерации")
         self.data = []
         self.x_ax = []
         self.ax = 0
@@ -44,6 +47,9 @@ class ThreeGraph(pg.PlotWidget):
         super().__init__()
 
     def start(self, start, fin, polynome_data):
+        self.setTitle("Функция и три лучших приближения")
+        self.setLabel("left", "y")
+        self.setLabel("bottom", "x")
         self.data = []
         step = (fin - start)/(len(polynome_data) - 1)
         self.x_ax = [start + step*i for i in range(0, len(polynome_data))]
@@ -103,14 +109,14 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         #создаём кнопку старта 
-        self.button = QPushButton("Press Me!")
-        self.fast_button = QPushButton("Gotta go fast!")
+        self.button = QPushButton("Шаг алгоритма")
+        self.fast_button = QPushButton("Быстрая итерация")
         self.button.clicked.connect(self.the_button_was_clicked)
         self.fast_button.clicked.connect(self.go_on_without_stop)
         self.button.setEnabled(False)
         self.fast_button.setEnabled(False)
 
-        self.button_start = QPushButton("Press when finished input")
+        self.button_start = QPushButton("Нажмите после завершения ввода")
         self.button_start.clicked.connect(self.starter)
         self.alg = None
 
@@ -130,6 +136,22 @@ class MainWindow(QMainWindow):
         self.line_for_crit.setPlaceholderText("критерий остановки")
         self.line_for_num_of_indiv = QLineEdit()
         self.line_for_num_of_indiv.setPlaceholderText("количество особей")
+        self.line_prob_recomb = QLineEdit()
+        self.line_prob_recomb.setPlaceholderText("вероятность скрещивания")
+                
+
+        self.name_mut = QLabel("шаг мутации")
+        self.box_for_mut_method = QComboBox()
+        self.name_rec = QLabel("способ рекомбинации")
+        self.box_for_recomb_method = QComboBox()
+        self.name_pop = QLabel("вид алгоритма")
+        self.box_for_popul_type = QComboBox()
+        self.box_for_mut_method.addItems(["одинаковый шаг", "разный шаг"])
+        self.box_for_recomb_method.addItems(["дискретная", "промежуточная"])
+        self.box_for_popul_type.addItems(["гибридный", "с нефиксированной популяцией"])
+
+        self.name_message = QLabel("")
+
 
         """
         self.flag_coeff = False
@@ -173,14 +195,25 @@ class MainWindow(QMainWindow):
         
         layout.addWidget(self.esteem_graph, 0, 0, 5, 5)
         layout.addWidget(self.three_graph, 0, 5, 5, 5)
-        layout.addWidget(self.line_for_coeff, 5, 0, 1, 9)
-        layout.addWidget(self.line_for_start, 6, 0, 1, 9)
-        layout.addWidget(self.line_for_finish, 7, 0, 1, 9)
-        layout.addWidget(self.line_for_num_of_steps, 8, 0, 1, 9)
-        layout.addWidget(self.line_for_num_of_indiv, 9, 0, 1, 9)
-        layout.addWidget(self.line_for_num_of_iter, 10, 0, 1, 9)
-        layout.addWidget(self.line_for_prob, 11, 0, 1, 9)
-        layout.addWidget(self.line_for_crit, 12, 0, 1, 9)
+        layout.addWidget(self.line_for_coeff, 5, 0, 1, 7)
+        layout.addWidget(self.line_for_start, 6, 0, 1, 7)
+        layout.addWidget(self.line_for_finish, 7, 0, 1, 7)
+        layout.addWidget(self.line_for_num_of_steps, 8, 0, 1, 3)
+        layout.addWidget(self.line_for_num_of_indiv, 8, 3, 1, 4)
+        layout.addWidget(self.line_for_num_of_iter, 9, 0, 1, 3)
+        layout.addWidget(self.line_for_prob, 9, 3, 1, 4)
+        layout.addWidget(self.line_for_crit, 10, 0, 1, 3)
+        layout.addWidget(self.line_prob_recomb, 10, 3, 1, 4)
+
+        layout.addWidget(self.name_mut, 5, 7, 1, 2)
+        layout.addWidget(self.box_for_mut_method, 6, 7, 1, 2)
+        layout.addWidget(self.name_rec, 7, 7, 1, 2)
+        layout.addWidget(self.box_for_recomb_method, 8, 7, 1, 2)
+        layout.addWidget(self.name_pop, 9, 7, 1, 2)
+        layout.addWidget(self.box_for_popul_type, 10, 7, 1, 2)
+
+        
+
         """
         layout.addWidget(self.esteem_graph, stretch = 1, alignment =  Qt.AlignmentFlag.AlignLeft)
         layout.addWidget(self.three_graph, stretch = 1, alignment =  Qt.AlignmentFlag.AlignRight)
@@ -193,9 +226,12 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.line_for_prob, alignment = Qt.AlignmentFlag.AlignRight)
         layout.addWidget(self.line_for_crit, alignment = Qt.AlignmentFlag.AlignRight)
         """
+        
         layout.addWidget(self.button, 5, 9 , 1, 1)
         layout.addWidget(self.fast_button, 6, 9, 1, 1)
         layout.addWidget(self.button_start, 7, 9, 1, 1)
+
+        layout.addWidget(self.name_message, 8, 9, 1, 1)
 
         container = QWidget()
         container.setLayout(layout)
@@ -204,15 +240,22 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(container)
 
     def starter(self):
-        self.coeff_for_pol = [float(i) for i in self.line_for_coeff.text().split()]
-        self.num_of_step = int(self.line_for_num_of_steps.text())
-        self.start = float(self.line_for_start.text())
-        self.finish = float(self.line_for_finish.text())
-        self.step = (self.finish - self.start)/self.num_of_step
-        self.num_of_iter = int(self.line_for_num_of_iter.text())
-        self.num_of_indiv = int(self.line_for_num_of_indiv.text())
-        self.prob = float(self.line_for_prob.text())
-        self.criteria = float(self.line_for_crit.text())
+
+        try:
+            self.coeff_for_pol = [float(i) for i in self.line_for_coeff.text().split()]
+            self.num_of_step = int(self.line_for_num_of_steps.text())
+            self.start = float(self.line_for_start.text())
+            self.finish = float(self.line_for_finish.text())
+            self.step = (self.finish - self.start)/self.num_of_step
+            self.num_of_iter = int(self.line_for_num_of_iter.text())
+            self.num_of_indiv = int(self.line_for_num_of_indiv.text())
+            self.prob = float(self.line_for_prob.text())
+            self.criteria = float(self.line_for_crit.text())
+            self.name_message.setText("")
+        except ValueError:
+            self.name_message.setText("неправильный ввод!")
+            return
+                
         y_data = []
         x_data = [self.start + i*(self.finish - self.start)/(self.num_of_step*25) for i in range(self.num_of_step*25)]#num_of_step*25 => (fi-st)/a = step
         for x in x_data:
@@ -241,12 +284,11 @@ class MainWindow(QMainWindow):
         self.counter+=1
         chromes, estems = self.alg.step()
         print("did step: ", self.counter)
-
         est = min(estems)
         self.curr_best = est
         self.esteem_graph.update(est)
         self.three_graph.update(chromes[0], chromes[1], chromes[2])
-        if self.counter >= self.num_of_iter:
+        if self.counter >= self.num_of_iter or self.curr_best < self.criteria:
             self.button.setEnabled(False)
             self.fast_button.setEnabled(False)
 
@@ -255,10 +297,11 @@ class MainWindow(QMainWindow):
         self.counter+=1
         chromes, estems = self.alg.step()
         print("did step: ", self.counter)
+
         est = min(estems)
         self.curr_best = est
         self.esteem_graph.update(est)
-        if self.counter >= self.num_of_iter:
+        if self.counter >= self.num_of_iter or self.curr_best < self.criteria:
             self.button.setEnabled(False)
             self.fast_button.setEnabled(False)
             return chromes
@@ -273,8 +316,12 @@ class MainWindow(QMainWindow):
            
 
     def go_on_without_stop(self):
-        for i in range(self.counter, self.num_of_iter - 2):
+        for _ in range(self.counter, self.num_of_iter - 2):
             self.do_step_without_draw()
+            if self.counter >= self.num_of_iter or self.curr_best < self.criteria:
+                self.button.setEnabled(False)
+                self.fast_button.setEnabled(False)
+                break
         chromes = self.do_step_without_draw()
         self.three_graph.update(chromes[0], chromes[1], chromes[2])
         
