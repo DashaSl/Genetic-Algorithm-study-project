@@ -16,7 +16,7 @@ Chromosome::Chromosome(double probMutation, double down, double up, int number, 
         this->genes = {};
         this->down_border = down;
         this->up_border = up;
-        this->max_mutation_step = MAX_MUT_STP;
+        this->max_mutation_step = (up - down)/10;
         this->birthDate = birthDate;
         this->age = age;
         std::random_device rd;  // Will be used to obtain a seed for the random number engine
@@ -30,7 +30,7 @@ Chromosome::Chromosome(double probMutation, double down, double up, int number, 
 std::vector<Chromosome> Chromosome::recombination(Chromosome parent1, Chromosome parent2, int method){
         std::vector<Chromosome> answer;
         if(method == 0){
-                discr_recomb(parent1, parent2, answer);
+                inter_recomb(parent1, parent2, answer);
         }
         return answer;
 }
@@ -97,7 +97,7 @@ void Chromosome::discr_recomb(Chromosome parent1, Chromosome parent2, std::vecto
 
 //Нововведения
 
-double Chromosome::random_number(double a, double b){
+double random_number(double a, double b){
         std::random_device rd;  // Will be used to obtain a seed for the random number engine
         std::mt19937_64 gen(rd());//генерирует случайное целое
         std::uniform_real_distribution<> dis(a, b);

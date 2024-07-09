@@ -4,7 +4,7 @@
 #include <limits>
 #include <cfloat>
 
-#define MAX_MUT_STP 0.002 //поменять, когда станет понятно
+#define MAX_MUT_STP 0.02 //поменять, когда станет понятно
 
 class Chromosome {
     public:
@@ -22,7 +22,7 @@ class Chromosome {
         int age;
 
         int birthDate;
-
+        ///HIII
         Chromosome(double probMutation, double down, double up, int number, int len, int metodmut = 0, int methodrecomb = 0, int age = 1, int birthdate = 0);
 
         //В других классах и функциях используются только эти две функции
@@ -32,4 +32,6 @@ class Chromosome {
         void mutate_dumb();
         double new_gene(double old_gene);
         static void discr_recomb(Chromosome parent1, Chromosome parent2, std::vector<Chromosome>& answer);
+        static void inter_recomb(Chromosome parent1, Chromosome parent2, std::vector<Chromosome>& answer);
 };
+double random_number(double a, double b);

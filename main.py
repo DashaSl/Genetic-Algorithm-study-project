@@ -5,7 +5,7 @@ import time
 import sys
 from PyQt6 import QtCore
 from PyQt6.QtCore import Qt, QSize
-from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow, QTextEdit, QPushButton, QVBoxLayout, QWidget, QLineEdit, QGridLayout
+from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow, QTextEdit, QPushButton, QVBoxLayout, QWidget, QLineEdit, QGridLayout, QComboBox
 import pyqtgraph as pg
 import math
 
@@ -103,14 +103,14 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         #создаём кнопку старта 
-        self.button = QPushButton("Press Me!")
-        self.fast_button = QPushButton("Gotta go fast!")
+        self.button = QPushButton("Шаг алгоритма")
+        self.fast_button = QPushButton("Быстрая итерация")
         self.button.clicked.connect(self.the_button_was_clicked)
         self.fast_button.clicked.connect(self.go_on_without_stop)
         self.button.setEnabled(False)
         self.fast_button.setEnabled(False)
 
-        self.button_start = QPushButton("Press when finished input")
+        self.button_start = QPushButton("Нажмите после завершения ввода")
         self.button_start.clicked.connect(self.starter)
         self.alg = None
 
@@ -130,6 +130,10 @@ class MainWindow(QMainWindow):
         self.line_for_crit.setPlaceholderText("критерий остановки")
         self.line_for_num_of_indiv = QLineEdit()
         self.line_for_num_of_indiv.setPlaceholderText("количество особей")
+        
+        self.box_for_mut_method = QComboBox()
+        self.box_for_recomb_method = QComboBox()
+        self.box_for_popul_type = QComboBox()
 
         """
         self.flag_coeff = False
@@ -181,6 +185,8 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.line_for_num_of_iter, 10, 0, 1, 7)
         layout.addWidget(self.line_for_prob, 11, 0, 1, 7)
         layout.addWidget(self.line_for_crit, 12, 0, 1, 7)
+        
+
         """
         layout.addWidget(self.esteem_graph, stretch = 1, alignment =  Qt.AlignmentFlag.AlignLeft)
         layout.addWidget(self.three_graph, stretch = 1, alignment =  Qt.AlignmentFlag.AlignRight)
@@ -242,7 +248,6 @@ class MainWindow(QMainWindow):
         self.counter+=1
         chromes, estems = self.alg.step()
         print("did step: ", self.counter)
-
         est = min(estems)
         self.curr_best = est
         self.esteem_graph.update(est)
@@ -256,6 +261,7 @@ class MainWindow(QMainWindow):
         self.counter+=1
         chromes, estems = self.alg.step()
         print("did step: ", self.counter)
+
         est = min(estems)
         self.curr_best = est
         self.esteem_graph.update(est)
@@ -274,7 +280,7 @@ class MainWindow(QMainWindow):
            
 
     def go_on_without_stop(self):
-        for i in range(self.counter, self.num_of_iter - 2):
+        for _ in range(self.counter, self.num_of_iter - 2):
             self.do_step_without_draw()
         chromes = self.do_step_without_draw()
         self.three_graph.update(chromes[0], chromes[1], chromes[2])
