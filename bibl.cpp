@@ -25,7 +25,7 @@ extern "C" void del_crm(Chromosome* instance){
 
 
 extern "C" Chromosome** stepHybridAlgorithm(Algorithm* alg){
-    std::vector<Chromosome> tmp= alg->stepHybridAlgorithm();
+    std::vector<Chromosome> tmp= alg->stepAlgorithm();
     Chromosome** a = (Chromosome**) malloc(sizeof(Chromosome*)*tmp.size());
     for(int i = 0; i < tmp.size(); i++){
         a[i] = new Chromosome(0, 0, 0, 0, 0);

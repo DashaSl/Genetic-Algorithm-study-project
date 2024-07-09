@@ -42,9 +42,9 @@ void Population::updatePopulation(std::vector<Chromosome> chroms) {
 }
 
 
-void Population::addChildren(std::vector<Chromosome> &children, Polynomial &polynom, int count, int time) {
+void Population::addChildren(std::vector<Chromosome> &children, Polynomial &polynom) {
     double difference;
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < this->countIndivids; i++) {
         std::random_device rd;  // Will be used to obtain a seed for the random number engine
         std::mt19937_64 gen(rd());//генерирует случайное целое
         std::uniform_real_distribution<> dis(0, 1);
@@ -59,10 +59,6 @@ void Population::addChildren(std::vector<Chromosome> &children, Polynomial &poly
         std::vector<Chromosome> pair_children = this->chromosomes[i].recombination(this->chromosomes[i], this->chromosomes[j]);
         difference = polynom.Evaluation(pair_children[0]);
         pair_children[0].estimate = difference;
-        pair_children[0].birthDate = time;
-        pair_children[1].birthDate = time;
-        pair_children[0].age = -1;
-        pair_children[1].age = -1;
         pair_children[0].mutate();
         pair_children[1].mutate();
         difference = polynom.Evaluation(pair_children[1]);
@@ -73,7 +69,28 @@ void Population::addChildren(std::vector<Chromosome> &children, Polynomial &poly
     this->countIndivids = this->chromosomes.size();
 }
 
-void Population::elite_selection(Polynomial &polynom, int time) {
+
+void Population::updateNonfixed(Polynomial &polynom, int time) {
+    double difference;
+    double count = this->probReproduction * this->countIndivids;
+    std::cout << count << ' ' <<  this->probReproduction  << ' ' <<  this->countIndivids;
+    for (int k = 0; k < count; k++) {
+        int i = rand() % (this->countIndivids);
+        int j = i;
+        while (j == i) {
+            j = rand() % (this->countIndivids);
+        }
+        std::vector<Chromosome> pair_children = this->chromosomes[i].recombination(this->chromosomes[i], this->chromosomes[j]);
+        pair_children[0].estimate = polynom.Evaluation(pair_children[0]);
+        pair_children[0].birthDate = time;
+        pair_children[0].age = -1;
+        pair_children[0].mutate();
+        this->chromosomes.push_back(pair_children[0]);
+    }
+    this->countIndivids = this->chromosomes.size();
+}
+
+void Population::elite_selection(Polynomial &polynom) {
     std::vector<Chromosome> cutPopulation;
     std::vector<Chromosome> newPopulation;
     for (int i = 0; i < this->countBestIndivids; i++) {
@@ -81,7 +98,7 @@ void Population::elite_selection(Polynomial &polynom, int time) {
     }
     this->updatePopulation(cutPopulation);
 
-    this->addChildren(cutPopulation, polynom, this->countIndivids, time);
+    this->addChildren(cutPopulation, polynom);
 
     this->updatePopulation(cutPopulation);
     for (int i = 0; i < cutPopulation.size(); i++) {
@@ -90,31 +107,10 @@ void Population::elite_selection(Polynomial &polynom, int time) {
     this->updatePopulation(newPopulation);
 }
 
-
-//void Population:: truncation_selection(Polynomial &polynom, int count) {
-//    std::vector<Chromosome> newPopulation;
-//    if (this->countIndivids < count) {
-//        count = countIndivids;
-//    }
-//    for (int i = 0; i < count, i++) {
-//        newPopulation.push_back(this->chromosomes[i]);
-//    }
-//    int j;
-//    while (newPopulation.size() < this->countIndivids) {
-//        j = rand() % (this->count);
-//        newPopulation.push_back(this->chromosomes[j]);
-//    }
-//    this->updatePopulation(newPopulation);
-//}
-
-
 void Population :: cutOldIndivids(int time) {
-    //в this->chromosomes оставить только те хромосомы, чей возраст + дата рождения не больше чем curIteration
     auto iter = chromosomes.cbegin(); // указатель на первый элемент
     for (int i = 0; i < chromosomes.size(); i++) {
-        //std::cout  << chromosomes[i].birthDate << ' ' <<  chromosomes[i].age << "\n";
-        if (chromosomes[i].age + chromosomes[i].birthDate >= time) {
-            //std::cout << "DELETE\n";
+        if (chromosomes[i].age + chromosomes[i].birthDate < time) {
             chromosomes.erase(iter + i);
         }
     }
@@ -127,6 +123,8 @@ void Population :: addAge(int maxAge) {
         if (this->chromosomes[i].age == -1) {
             age = maxAge - int(double(i) / countIndivids * maxAge);
             this->chromosomes[i].age = age;
+            std::cout << this->chromosomes[i].age << ' ';
         }
     }
+    std::cout << '\n';
 }
