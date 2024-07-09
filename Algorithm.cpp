@@ -6,7 +6,7 @@ Algorithm::Algorithm(int count_individs, int count_steps, double probMutation, s
     Polynomial polynom = Polynomial(coefs_polynom, left, right);
     std::vector<double> values;
     for (double x = left; x < right; x += (right - left) / 1000) {
-        values.push_back(polynom.getValue(x));
+    	values.push_back(polynom.getValue(x));
     }
     double down = *std::min_element(begin(values), end(values));
     double up = *std::max_element(begin(values), end(values));
