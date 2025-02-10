@@ -153,25 +153,6 @@ class MainWindow(QMainWindow):
         self.name_message = QLabel("")
 
 
-        """
-        self.flag_coeff = False
-        self.line_for_coeff.returnPressed.connect(self.ent_coeff)
-        self.flag_start = False
-        self.line_for_start.returnPressed.connect(self.ent_strt)
-        self.flag_finish = False
-        self.line_for_finish.returnPressed.connect(self.ent_fin)
-        self.flag_num_of_steps = False
-        self.line_for_num_of_steps.returnPressed.connect(self.ent_step)
-        self.flag_num_of_iter = False
-        self.line_for_num_of_iter.returnPressed.connect(self.ent_iter)
-        self.flag_num_of_indiv = False
-        self.line_for_num_of_indiv.returnPressed.connect(self.ent_indiv)
-        self.flag_crit = False
-        self.line_for_crit.returnPressed.connect(self.ent_crt)
-        self.flag_prob = False
-        self.line_for_prob.returnPressed.connect(self.ent_prob)
-        """
-
         self.coeff_for_pol = [1.0, 2.14, 3.12, 4.1324]
         self.step = 5/14
         self.start = 0
@@ -216,21 +197,6 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.name_pop, 9, 7, 1, 2)
         layout.addWidget(self.box_for_popul_type, 10, 7, 1, 2)
 
-        
-
-        """
-        layout.addWidget(self.esteem_graph, stretch = 1, alignment =  Qt.AlignmentFlag.AlignLeft)
-        layout.addWidget(self.three_graph, stretch = 1, alignment =  Qt.AlignmentFlag.AlignRight)
-        layout.addWidget(self.line_for_coeff, alignment = Qt.AlignmentFlag.AlignRight)
-        layout.addWidget(self.line_for_start, alignment = Qt.AlignmentFlag.AlignRight)
-        layout.addWidget(self.line_for_finish, alignment = Qt.AlignmentFlag.AlignRight)
-        layout.addWidget(self.line_for_num_of_steps, alignment = Qt.AlignmentFlag.AlignRight)
-        layout.addWidget(self.line_for_num_of_indiv, alignment = Qt.AlignmentFlag.AlignRight)
-        layout.addWidget(self.line_for_num_of_iter, alignment = Qt.AlignmentFlag.AlignRight)
-        layout.addWidget(self.line_for_prob, alignment = Qt.AlignmentFlag.AlignRight)
-        layout.addWidget(self.line_for_crit, alignment = Qt.AlignmentFlag.AlignRight)
-        """
-        
         layout.addWidget(self.button, 5, 9 , 1, 1)
         layout.addWidget(self.fast_button, 6, 9, 1, 1)
         layout.addWidget(self.button_start, 7, 9, 1, 1)
